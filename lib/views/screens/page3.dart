@@ -14,6 +14,12 @@ class _Page3State extends State<Page3> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            padding: EdgeInsets.all(1),
+            width: 543.93121,
+            height: 599.83105,
+            color: Color(0xFF0D4C92),
+          ),
           Center(
             child: Container(
               // width: 500,
