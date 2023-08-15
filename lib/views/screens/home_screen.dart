@@ -57,9 +57,9 @@ class _Home_screenState extends State<Home_screen> {
               label: 'Home'),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.person,
+                Icons.checklist,
               ),
-              label: "Profile"),
+              label: "Tasks"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,

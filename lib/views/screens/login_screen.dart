@@ -67,6 +67,7 @@ class _loginScreenState extends State<loginScreen> {
                     if (value!.isEmpty || !value.contains('@')) {
                       return 'Please enter valid email';
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     hintText: 'Email',
@@ -82,6 +83,7 @@ class _loginScreenState extends State<loginScreen> {
                     if (value!.isEmpty || value.length < 8) {
                       return 'Please enter valid password';
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     hintText: 'password',
