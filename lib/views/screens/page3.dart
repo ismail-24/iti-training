@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Page3 extends StatefulWidget {
@@ -8,26 +9,36 @@ class Page3 extends StatefulWidget {
 }
 
 class _Page3State extends State<Page3> {
+  final Stream<QuerySnapshot> productsStream =
+      FirebaseFirestore.instance.collection('products').snapshots();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.all(1),
-            width: 543.93121,
-            height: 599.83105,
-            color: Color(0xFF0D4C92),
-          ),
-          Center(
-            child: Container(
-              // width: 500,
-              child: Text('page3'),
-            ),
-          ),
-        ],
-      ),
+    return StreamBuilder<QuerySnapshot>(
+      stream: productsStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return ListTile(
+              title: Text(data['name']),
+              subtitle: Text(data['storage']),
+              trailing: Text(data['price']),
+            );
+          }).toList(),
+        );
+      },
     );
   }
 }
